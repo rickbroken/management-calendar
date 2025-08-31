@@ -25,7 +25,7 @@ const NAVIGATION: Navigation = [
 ];
 
 const BRANDING = {
-  title: "management-calentadr",
+  title: "m",
 };
 
 const AUTHENTICATION: Authentication = {    
