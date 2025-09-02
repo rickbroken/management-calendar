@@ -1,10 +1,12 @@
 import * as React from 'react';
 import ListAltIcon from '@mui/icons-material/ListAlt';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { Outlet } from 'react-router';
 import { ReactRouterAppProvider } from '@toolpad/core/react-router';
 import type { Navigation, Authentication } from '@toolpad/core/AppProvider';
 import { firebaseSignOut, onAuthStateChanged } from './firebase/auth';
 import SessionContext, { type Session } from './SessionContext';
+import { TodoProvider } from './TodoContext';
 import theme from '../theme';
 
 const NAVIGATION: Navigation = [
@@ -13,8 +15,14 @@ const NAVIGATION: Navigation = [
     title: 'Main items',
   },
   {
+    segment: '',
     title: 'To Do GinNor',
     icon: <ListAltIcon />,
+  },
+  {
+    segment: 'calendar',
+    title: 'Calendario',
+    icon: <CalendarMonthIcon />,
   },
 ];
 
@@ -68,7 +76,9 @@ export default function App() {
       theme={theme}
     >
       <SessionContext.Provider value={sessionContextValue}>
-        <Outlet />
+        <TodoProvider>
+          <Outlet />
+        </TodoProvider>
       </SessionContext.Provider>
     </ReactRouterAppProvider>
   );

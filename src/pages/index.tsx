@@ -14,48 +14,32 @@ import {
   InputBase,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-
-type Todo = {
-  id: number;
-  title: string;
-  description: string;
-  tags: string[];
-  completed: boolean;
-  createdAt: Date;
-};
+import { useTodoStore } from '../TodoContext';
 
 export default function ToDoGinNorPage() {
-  const [todos, setTodos] = React.useState<Todo[]>([]);
+  const { todos, addTodo, toggleTodo } = useTodoStore();
   const [showForm, setShowForm] = React.useState(false);
   const [title, setTitle] = React.useState('');
   const [description, setDescription] = React.useState('');
   const [tags, setTags] = React.useState<string[]>([]);
 
-  const addTodo = () => {
+  const handleAdd = () => {
     if (!title.trim()) {
       return;
     }
 
-    setTodos([
-      ...todos,
-      {
-        id: Date.now(),
-        title: title.trim(),
-        description: description.trim(),
-        tags,
-        completed: false,
-        createdAt: new Date(),
-      },
-    ]);
+    addTodo({
+      title: title.trim(),
+      description: description.trim(),
+      tags,
+      completed: false,
+      createdAt: new Date(),
+    });
 
     setTitle('');
     setDescription('');
     setTags([]);
     setShowForm(false);
-  };
-
-  const toggleTodo = (id: number) => {
-    setTodos(todos.map((todo) => (todo.id === id ? { ...todo, completed: !todo.completed } : todo)));
   };
 
   const defaultTags = ['Alta', 'Media', 'Baja'];
@@ -113,7 +97,7 @@ export default function ToDoGinNorPage() {
                 />
               )}
             />
-            <Button variant="contained" onClick={addTodo} sx={{ alignSelf: 'flex-end', mt: 1 }}>
+            <Button variant="contained" onClick={handleAdd} sx={{ alignSelf: 'flex-end', mt: 1 }}>
               Agregar
             </Button>
           </Box>
