@@ -6,11 +6,13 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  FacebookAuthProvider,
 } from 'firebase/auth';
 import { firebaseAuth } from './firebaseConfig';
 
 const googleProvider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
+const facebookProvider = new FacebookAuthProvider();
 
 // Sign in with Google functionality
 export const signInWithGoogle = async () => {
@@ -52,6 +54,26 @@ export const signInWithGithub = async () => {
   }
 };
 
+// sign in with Facebook functionality
+export const signInWithFacebook = async () => {
+  try {
+    return setPersistence(firebaseAuth, browserSessionPersistence).then(async () => {
+      const result = await signInWithPopup(firebaseAuth, facebookProvider);
+      return {
+        success: true,
+        user: result.user,
+        error: null,
+      };
+    });
+  } catch (error: any) {
+    return {
+      success: false,
+      user: null,
+      error: error.message,
+    };
+  }
+};
+
 // Sign in with email and password
 export async function signInWithCredentials(email: string, password: string) {
   try {
@@ -67,7 +89,7 @@ export async function signInWithCredentials(email: string, password: string) {
     return {
       success: false,
       user: null,
-      error: error.message || 'Failed to sign in with email/password',
+      error: error.message || 'No se pudo iniciar sesión con correo electrónico/contraseña',
     };
   }
 }

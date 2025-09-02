@@ -1,20 +1,15 @@
 import * as React from 'react';
-
-
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom'; // <= corregido
 import { Crud } from '@toolpad/core/Crud';
 import { employeesDataSource, Employee, employeesCache } from '../data/employees';
 
+const CrudEmployees = Crud<Employee>; // <= alias sin genérico en el JSX
 
 export default function EmployeesCrudPage() {
-  
-  
   const { employeeId } = useParams();
-  
-  
 
   return (
-    <Crud<Employee>
+    <CrudEmployees
       dataSource={employeesDataSource}
       dataSourceCache={employeesCache}
       rootPath="/employees"

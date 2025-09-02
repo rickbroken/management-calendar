@@ -5,7 +5,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 import { SignInPage } from '@toolpad/core/SignInPage';
 import { Navigate, useNavigate } from 'react-router';
 import { useSession, type Session } from '../SessionContext';
-import { signInWithGoogle, signInWithGithub, signInWithCredentials } from '../firebase/auth';
+import { signInWithGoogle, signInWithGithub, signInWithFacebook, signInWithCredentials } from '../firebase/auth';
 
 
 export default function SignIn() {
@@ -22,7 +22,7 @@ export default function SignIn() {
 
   return (
     <SignInPage
-      providers={[{ id: 'google', name: 'Google' }, { id: 'github', name: 'GitHub' }, { id: 'credentials', name: 'Credentials' }]}
+      providers={[{ id: 'google', name: 'Google' }, { id: 'github', name: 'GitHub' }, { id: 'facebook', name: 'Facebook' }, { id: 'credentials', name: 'Credentials' }]}
       signIn={async (provider, formData, callbackUrl) => {
         let result;
         try {
@@ -31,6 +31,9 @@ export default function SignIn() {
           }
           if (provider.id === 'github') {
             result = await signInWithGithub();
+          }
+          if (provider.id === 'facebook') {
+            result = await signInWithFacebook();
           }
           if (provider.id === 'credentials') {
             const email = formData?.get('email') as string;
