@@ -1,6 +1,5 @@
 import * as React from 'react';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import PersonIcon from '@mui/icons-material/Person';
+import ListAltIcon from '@mui/icons-material/ListAlt';
 import { Outlet } from 'react-router';
 import { ReactRouterAppProvider } from '@toolpad/core/react-router';
 import type { Navigation, Authentication } from '@toolpad/core/AppProvider';
@@ -13,19 +12,13 @@ const NAVIGATION: Navigation = [
     title: 'Main items',
   },
   {
-    title: 'Dashboard',
-    icon: <DashboardIcon />,
-  },
-  {
-    segment: 'employees',
-    title: 'Employees',
-    icon: <PersonIcon />,
-    pattern: 'employees{/:employeeId}*',
+    title: 'To Do GinNor',
+    icon: <ListAltIcon />,
   },
 ];
 
 const BRANDING = {
-  title: "m",
+  title: 'To Do GinNor',
 };
 
 const AUTHENTICATION: Authentication = {    
