@@ -5,6 +5,7 @@ import App from './App';
 import Layout from './layouts/main';
 import ToDoGinNorPage from './pages';
 import SignInPage from './pages/signin';
+import CalendarPage from './pages/calendar';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
           {
             path: '',
             Component: ToDoGinNorPage,
+          },
+          {
+            path: 'calendar',
+            Component: CalendarPage,
           },
         ],
       },
