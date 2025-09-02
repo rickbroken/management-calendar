@@ -10,9 +10,9 @@ import {
   Stack,
   Typography,
   Autocomplete,
+  TextareaAutosize,
   InputBase,
 } from '@mui/material';
-import TextareaAutosize from '@mui/base/TextareaAutosize';
 import AddIcon from '@mui/icons-material/Add';
 
 type Todo = {
@@ -107,7 +107,6 @@ export default function ToDoGinNorPage() {
               }
               renderInput={(params) => (
                 <InputBase
-                  ref={params.InputProps.ref}
                   {...params.inputProps}
                   placeholder="Prioridades"
                   sx={{ width: '100%' }}
