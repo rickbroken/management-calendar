@@ -13,6 +13,8 @@ interface TodoContextValue {
   todos: Todo[];
   addTodo: (todo: Omit<Todo, 'id'>) => void;
   toggleTodo: (id: number) => void;
+  updateTodo: (id: number, updates: Partial<Omit<Todo, 'id'>>) => void;
+  removeTodo: (id: number) => void;
 }
 
 const TodoContext = React.createContext<TodoContextValue | undefined>(undefined);
@@ -28,8 +30,18 @@ export function TodoProvider({ children }: { children: React.ReactNode }) {
     setTodos((prev) => prev.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t)));
   };
 
+  const updateTodo = (id: number, updates: Partial<Omit<Todo, 'id'>>) => {
+    setTodos((prev) => prev.map((t) => (t.id === id ? { ...t, ...updates } : t)));
+  };
+
+  const removeTodo = (id: number) => {
+    setTodos((prev) => prev.filter((t) => t.id !== id));
+  };
+
   return (
-    <TodoContext.Provider value={{ todos, addTodo, toggleTodo }}>
+    <TodoContext.Provider
+      value={{ todos, addTodo, toggleTodo, updateTodo, removeTodo }}
+    >
       {children}
     </TodoContext.Provider>
   );
