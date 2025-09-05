@@ -17,6 +17,17 @@ export default function CalendarPage() {
       const calendar = new window.FullCalendar.Calendar(calendarRef.current, {
         initialView: 'dayGridMonth',
         editable: true,
+        headerToolbar: {
+          start: 'dayGridMonth,timeGridWeek,timeGridDay',
+          center: 'title',
+          end: 'prev,next today',
+        },
+        buttonText: {
+          today: 'Hoy',
+          month: 'Mes',
+          week: 'Semana',
+          day: 'Día',
+        },
         events: todos.map((todo) => ({
           id: String(todo.id),
           title: todo.title,
