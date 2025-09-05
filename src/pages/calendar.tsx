@@ -1,39 +1,43 @@
 import * as React from 'react';
 import { PageContainer } from '@toolpad/core/PageContainer';
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import listPlugin from '@fullcalendar/list';
+import type { EventClickArg, EventDropArg } from '@fullcalendar/core';
+import '@fullcalendar/core/index.css';
+import '@fullcalendar/daygrid/index.css';
+import '@fullcalendar/timegrid/index.css';
+import '@fullcalendar/list/index.css';
 import { useTodoStore } from '../TodoContext';
-
-declare global {
-  interface Window {
-    FullCalendar: any;
-  }
-}
 
 export default function CalendarPage() {
   const { todos, updateTodo, removeTodo } = useTodoStore();
-  const calendarRef = React.useRef<HTMLDivElement>(null);
 
-  React.useEffect(() => {
-    if (calendarRef.current && window.FullCalendar) {
-      const calendar = new window.FullCalendar.Calendar(calendarRef.current, {
-        initialView: 'dayGridMonth',
-        editable: true,
-        headerToolbar: {
+  return (
+    <PageContainer>
+      <FullCalendar
+        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
+        initialView="dayGridMonth"
+        editable
+        headerToolbar={{
           start: 'dayGridMonth,timeGridWeek,timeGridDay',
           center: 'title',
           end: 'prev,next today',
-        },
-        buttonText: {
+        }}
+        buttonText={{
           today: 'Hoy',
           month: 'Mes',
           week: 'Semana',
           day: 'Día',
-        },
-        events: todos.map((todo) => ({
+        }}
+        events={todos.map((todo) => ({
           id: String(todo.id),
           title: todo.title,
           start: todo.createdAt,
-        })),
-        eventClick: (info: any) => {
+        }))}
+        eventClick={(info: EventClickArg) => {
           const newTitle = window.prompt(
             'Nuevo título (deje vacío para eliminar)',
             info.event.title,
@@ -48,21 +52,13 @@ export default function CalendarPage() {
           } else {
             updateTodo(Number(info.event.id), { title: newTitle.trim() });
           }
-        },
-        eventDrop: (info: any) => {
+        }}
+        eventDrop={(info: EventDropArg) => {
           if (info.event.start) {
             updateTodo(Number(info.event.id), { createdAt: info.event.start });
           }
-        },
-      });
-      calendar.render();
-      return () => calendar.destroy();
-    }
-  }, [todos]);
-
-  return (
-    <PageContainer>
-      <div ref={calendarRef} />
+        }}
+      />
     </PageContainer>
   );
 }
