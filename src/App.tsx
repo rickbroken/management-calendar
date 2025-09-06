@@ -7,6 +7,7 @@ import type { Navigation, Authentication } from '@toolpad/core/AppProvider';
 import { firebaseSignOut, onAuthStateChanged } from './firebase/auth';
 import SessionContext, { type Session } from './SessionContext';
 import theme from '../theme';
+import { esLocaleText } from './locales/es';
 
 const NAVIGATION: Navigation = [
   {
@@ -73,6 +74,7 @@ export default function App() {
       session={session}
       authentication={AUTHENTICATION}
       theme={theme}
+      localeText={esLocaleText}
     >
       <SessionContext.Provider value={sessionContextValue}>
         <Outlet />

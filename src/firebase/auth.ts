@@ -29,7 +29,7 @@ export const signInWithGoogle = async () => {
     return {
       success: false,
       user: null,
-      error: error.message,
+      error: error.message || 'No se pudo iniciar sesión con Google',
     };
   }
 };
@@ -49,7 +49,7 @@ export const signInWithGithub = async () => {
     return {
       success: false,
       user: null,
-      error: error.message,
+      error: error.message || 'No se pudo iniciar sesión con GitHub',
     };
   }
 };
@@ -69,7 +69,7 @@ export const signInWithFacebook = async () => {
     return {
       success: false,
       user: null,
-      error: error.message,
+      error: error.message || 'No se pudo iniciar sesión con Facebook',
     };
   }
 };
@@ -102,7 +102,7 @@ export const firebaseSignOut = async () => {
   } catch (error: any) {
     return {
       success: false,
-      error: error.message,
+      error: error.message || 'No se pudo cerrar sesión',
     };
   }
 };

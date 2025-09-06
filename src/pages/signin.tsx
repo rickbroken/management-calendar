@@ -1,11 +1,11 @@
 'use client';
 import * as React from 'react';
-import Alert from '@mui/material/Alert';
 import LinearProgress from '@mui/material/LinearProgress';
 import { SignInPage } from '@toolpad/core/SignInPage';
 import { Navigate, useNavigate } from 'react-router';
 import { useSession, type Session } from '../SessionContext';
 import { signInWithGoogle, signInWithGithub, signInWithFacebook, signInWithCredentials } from '../firebase/auth';
+import { esLocaleText } from '../locales/es';
 
 
 export default function SignIn() {
@@ -22,7 +22,13 @@ export default function SignIn() {
 
   return (
     <SignInPage
-      providers={[{ id: 'google', name: 'Google' }, { id: 'github', name: 'GitHub' }, { id: 'facebook', name: 'Facebook' }, { id: 'credentials', name: 'Credentials' }]}
+      providers={[
+        { id: 'google', name: 'Google' },
+        { id: 'github', name: 'GitHub' },
+        { id: 'facebook', name: 'Facebook' },
+        { id: 'credentials', name: 'Correo electrónico y contraseña' },
+      ]}
+      localeText={esLocaleText}
       signIn={async (provider, formData, callbackUrl) => {
         let result;
         try {
@@ -40,7 +46,7 @@ export default function SignIn() {
             const password = formData?.get('password') as string;
 
             if (!email || !password) {
-              return { error: 'Email and password are required' };
+              return { error: 'El correo y la contraseña son obligatorios' };
             }
 
             result = await signInWithCredentials(email, password);
@@ -58,9 +64,11 @@ export default function SignIn() {
             navigate(callbackUrl || '/', { replace: true });
             return {};
           }
-          return { error: result?.error || 'Failed to sign in' };
+          return { error: result?.error || 'No se pudo iniciar sesión' };
         } catch (error) {
-          return { error: error instanceof Error ? error.message : 'An error occurred' };
+          return {
+            error: error instanceof Error ? error.message : 'Ocurrió un error',
+          };
         }
       }}
         
