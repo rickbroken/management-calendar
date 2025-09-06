@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import App from './App';
 import Layout from './layouts/main';
-import ToDoGinNorPage from './pages';
+import TodoPage from './pages';
 import SignInPage from './pages/signin';
 import CalendarPage from './pages/calendar';
 
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: '',
-            Component: ToDoGinNorPage,
+            Component: TodoPage,
           },
           {
             path: 'calendar',
