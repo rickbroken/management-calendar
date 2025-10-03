@@ -7,6 +7,10 @@ import { signInWithGoogle, signInWithGithub, signInWithFacebook, signInWithCrede
 import { esLocaleText } from '../locales/es';
 
 
+/**
+ * Página de inicio de sesión que ofrece múltiples proveedores y credenciales manuales.
+ * @returns {JSX.Element} Interfaz de autenticación para el usuario.
+ */
 export default function SignIn() {
   const { session, setSession, loading } = useSession();
   const navigate = useNavigate();
@@ -29,6 +33,9 @@ export default function SignIn() {
       ]}
       localeText={esLocaleText}
       signIn={async (provider, formData, callbackUrl) => {
+        /**
+         * Gestiona el flujo de autenticación según el proveedor seleccionado por el usuario.
+         */
         let result;
         try {
           if (provider.id === 'google') {

@@ -7,6 +7,9 @@ import TodoPage from './pages';
 import SignInPage from './pages/signin';
 import CalendarPage from './pages/calendar';
 
+/**
+ * Definición de las rutas de la aplicación y su jerarquía.
+ */
 const router = createBrowserRouter([
   {
     Component: App,
@@ -33,6 +36,9 @@ const router = createBrowserRouter([
   },
 ]);
 
+/**
+ * Punto de entrada que monta la aplicación de React en el DOM.
+ */
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <RouterProvider router={router} />
