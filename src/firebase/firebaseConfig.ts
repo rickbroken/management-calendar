@@ -1,6 +1,9 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
+/**
+ * Variables de entorno obligatorias necesarias para inicializar Firebase.
+ */
 const requiredEnvVars = {
   VITE_FIREBASE_API_KEY: import.meta.env.VITE_FIREBASE_API_KEY,
   VITE_FIREBASE_AUTH_DOMAIN: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -10,13 +13,18 @@ const requiredEnvVars = {
   VITE_FIREBASE_APP_ID: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-// Check for missing environment variables
+/**
+ * Verifica que todas las variables de entorno requeridas estén presentes y emite advertencias en caso contrario.
+ */
 Object.entries(requiredEnvVars).forEach(([key, value]) => {
   if (!value) {
     console.warn(`Missing required environment variable: ${key}`);
   }
 });
 
+/**
+ * Instancia de la aplicación de Firebase configurada con los valores de entorno.
+ */
 const app = initializeApp({
   apiKey: requiredEnvVars.VITE_FIREBASE_API_KEY,
   authDomain: requiredEnvVars.VITE_FIREBASE_AUTH_DOMAIN,
@@ -26,5 +34,8 @@ const app = initializeApp({
   appId: requiredEnvVars.VITE_FIREBASE_APP_ID,
 });
 
+/**
+ * Instancia del servicio de autenticación de Firebase utilizada en toda la aplicación.
+ */
 export const firebaseAuth = getAuth(app);
 export default app;

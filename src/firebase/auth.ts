@@ -10,11 +10,17 @@ import {
 } from 'firebase/auth';
 import { firebaseAuth } from './firebaseConfig';
 
+/** Proveedor de autenticación de Google utilizado por Firebase. */
 const googleProvider = new GoogleAuthProvider();
+/** Proveedor de autenticación de GitHub utilizado por Firebase. */
 const githubProvider = new GithubAuthProvider();
+/** Proveedor de autenticación de Facebook utilizado por Firebase. */
 const facebookProvider = new FacebookAuthProvider();
 
-// Sign in with Google functionality
+/**
+ * Inicia sesión con el proveedor de Google y mantiene la sesión en el almacenamiento de sesión del navegador.
+ * @returns {Promise<{ success: boolean; user: any; error: string | null }>} Resultado de la autenticación.
+ */
 export const signInWithGoogle = async () => {
   try {
     return setPersistence(firebaseAuth, browserSessionPersistence).then(async () => {
@@ -34,7 +40,10 @@ export const signInWithGoogle = async () => {
   }
 };
 
-// Sign in with GitHub functionality
+/**
+ * Inicia sesión con el proveedor de GitHub y aplica persistencia de sesión del navegador.
+ * @returns {Promise<{ success: boolean; user: any; error: string | null }>} Resultado de la autenticación.
+ */
 export const signInWithGithub = async () => {
   try {
     return setPersistence(firebaseAuth, browserSessionPersistence).then(async () => {
@@ -54,7 +63,10 @@ export const signInWithGithub = async () => {
   }
 };
 
-// sign in with Facebook functionality
+/**
+ * Inicia sesión con el proveedor de Facebook y conserva la sesión en el navegador.
+ * @returns {Promise<{ success: boolean; user: any; error: string | null }>} Resultado de la autenticación.
+ */
 export const signInWithFacebook = async () => {
   try {
     return setPersistence(firebaseAuth, browserSessionPersistence).then(async () => {
@@ -74,7 +86,12 @@ export const signInWithFacebook = async () => {
   }
 };
 
-// Sign in with email and password
+/**
+ * Inicia sesión con correo electrónico y contraseña utilizando el servicio de autenticación de Firebase.
+ * @param {string} email Correo electrónico del usuario.
+ * @param {string} password Contraseña del usuario.
+ * @returns {Promise<{ success: boolean; user: any; error: string | null }>} Resultado de la autenticación.
+ */
 export async function signInWithCredentials(email: string, password: string) {
   try {
     return setPersistence(firebaseAuth, browserSessionPersistence).then(async () => {
@@ -94,7 +111,10 @@ export async function signInWithCredentials(email: string, password: string) {
   }
 }
 
-// Sign out functionality
+/**
+ * Cierra la sesión del usuario autenticado en Firebase.
+ * @returns {Promise<{ success: boolean; error?: string }>} Estado del cierre de sesión.
+ */
 export const firebaseSignOut = async () => {
   try {
     await signOut(firebaseAuth);
@@ -107,7 +127,11 @@ export const firebaseSignOut = async () => {
   }
 };
 
-// Auth state observer
+/**
+ * Observa los cambios en el estado de autenticación de Firebase y ejecuta un callback.
+ * @param {(user: any) => void} callback Función que se invoca cuando cambia el usuario autenticado.
+ * @returns {import('firebase/auth').Unsubscribe} Función para cancelar la suscripción.
+ */
 export const onAuthStateChanged = (callback: (user: any) => void) => {
   return firebaseAuth.onAuthStateChanged(callback);
 };

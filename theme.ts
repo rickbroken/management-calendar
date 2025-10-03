@@ -2,6 +2,9 @@
 "use client";
 import { createTheme } from '@mui/material/styles';
 
+/**
+ * Tema personalizado de MUI con variables para alternar esquemas de color.
+ */
 const theme = createTheme({
   cssVariables: {
     colorSchemeSelector: 'data-toolpad-color-scheme',
@@ -28,4 +31,3 @@ const theme = createTheme({
 });
 
 export default theme;
-  

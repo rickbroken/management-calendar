@@ -7,6 +7,10 @@ import { Account } from '@toolpad/core/Account';
 
 import { useSession } from '../SessionContext';
 
+/**
+ * Renderiza las acciones personalizadas que aparecen en la barra de herramientas del panel.
+ * @returns {JSX.Element} Contenedor con el selector de tema y la cuenta del usuario.
+ */
 function CustomActions() {
   return (
     <Stack direction="row" alignItems="center">
@@ -20,6 +24,10 @@ function CustomActions() {
   );
 }
 
+/**
+ * Layout principal que protege las rutas autenticadas y muestra un cargador mientras se obtiene la sesión.
+ * @returns {JSX.Element} Disposición del panel o una redirección a la página de inicio de sesión.
+ */
 export default function Layout() {
   const { session, loading } = useSession();
   const location = useLocation();
@@ -38,7 +46,7 @@ export default function Layout() {
   }
 
   return (
-    <DashboardLayout  slots={{ toolbarActions: CustomActions }}>
+    <DashboardLayout slots={{ toolbarActions: CustomActions }}>
       <Outlet />
     </DashboardLayout>
   );

@@ -9,6 +9,9 @@ import SessionContext, { type Session } from './SessionContext';
 import theme from '../theme';
 import { esLocaleText } from './locales/es';
 
+/**
+ * Configuración de la navegación principal del panel, con los segmentos disponibles y sus iconos.
+ */
 const NAVIGATION: Navigation = [
   {
     kind: 'header',
@@ -26,19 +29,32 @@ const NAVIGATION: Navigation = [
   },
 ];
 
+/**
+ * Información de marca mostrada en la interfaz de Toolpad.
+ */
 const BRANDING = {
   title: 'To Do GinNor',
 };
 
-const AUTHENTICATION: Authentication = {    
+/**
+ * Implementación personalizada de los controladores de autenticación para el panel.
+ */
+const AUTHENTICATION: Authentication = {
   signIn: () => {},
   signOut: firebaseSignOut,
 };
 
+/**
+ * Componente raíz de la aplicación que configura el proveedor de Toolpad y el contexto de sesión.
+ * @returns {JSX.Element} Proveedor de Toolpad con las rutas hijas.
+ */
 export default function App() {
   const [session, setSession] = React.useState<Session | null>(null);
   const [loading, setLoading] = React.useState(true);
 
+  /**
+   * Memoriza el valor compartido del contexto de sesión para evitar renders innecesarios.
+   */
   const sessionContextValue = React.useMemo(
     () => ({
       session,
@@ -49,6 +65,9 @@ export default function App() {
   );
 
   React.useEffect(() => {
+    /**
+     * Suscribe al observador de autenticación de Firebase para mantener la sesión actualizada.
+     */
     const unsubscribe = onAuthStateChanged((user) => {
       if (user) {
         setSession({
