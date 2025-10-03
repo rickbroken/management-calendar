@@ -1,5 +1,4 @@
 'use client';
-import * as React from 'react';
 import LinearProgress from '@mui/material/LinearProgress';
 import { SignInPage } from '@toolpad/core/SignInPage';
 import { Navigate, useNavigate } from 'react-router';

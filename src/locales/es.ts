@@ -1,4 +1,4 @@
-import type { LocaleText } from '@toolpad/core/AppProvider/LocalizationProvider';
+import type { LocaleText } from '@toolpad/core';
 
 export const esLocaleText: Partial<LocaleText> = {
   accountSignInLabel: 'Iniciar sesión',
